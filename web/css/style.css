@@ -1,0 +1,110 @@
+body {
+    background-color: lightgray;
+}
+
+header {
+    margin: 10px;
+    padding: 0 10%;
+    text-transform: uppercase;
+}
+
+header > h2 {
+    float: right;
+    margin: 50px;
+}
+
+#logo {
+    width: 100px;
+    float: left;
+}
+
+.container {
+    position: relative;
+    margin-left: 20%;
+    margin-right: 20%;
+    background-color: #bfbfbf;
+    padding: 10px;
+}
+/*
+    NAVBAR
+ */
+#navbar {
+    float: left;
+    margin: 0;
+    padding: 0;
+    width: 15%;
+    /*background-color: grey;*/
+    min-width: 100px;
+}
+
+#navbar > ul {
+    list-style-type: none;
+}
+
+#navbar > ul > li {
+    list-style: none;
+    text-align: left;
+    margin: 0;
+}
+
+#navbar > ul > li > a {
+    display: block;
+    text-decoration: none;
+    padding: 5px;
+    border-bottom: solid 1px white;
+}
+
+#navbar > ul > li > a:link, a:visited {
+    color: #4b4b4b;
+}
+
+#navbar > ul > li > a:hover, a:active {
+    color: #000;
+}
+
+.profile-img {
+    width: 100px;
+    float: left;
+    margin-right: 25px;
+}
+
+.clearfix {
+    clear: both;
+}
+
+.person-container {
+    /*border: solid 1px;*/
+    margin-bottom: 5px;
+    padding: 5px;
+}
+.person-container > div > b {
+    margin-right: 25px;
+    text-decoration: underline;
+}
+
+.content-info{
+    border-top: solid 1px ;
+    text-align: right;
+}
+
+footer {
+    text-align: center;
+}
+
+/*
+    FORMULAR
+ */
+
+.form-group {
+    margin: 5px;
+}
+
+/*
+Darf ich das benutzen?
+ */
+@media(max-width: 750px){
+    #navbar{
+        float: none;
+        width: 100%;
+    }
+}
