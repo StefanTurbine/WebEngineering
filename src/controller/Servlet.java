@@ -133,8 +133,7 @@ public class Servlet extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/detail.jsp");
             dispatcher.forward(request, response);
         } else {
-            request.setAttribute("messages", messages);
-            response.sendRedirect("/index.jsp");
+            response.sendRedirect("/");
         }
 
     }
