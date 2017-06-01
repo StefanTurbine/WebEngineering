@@ -1,6 +1,6 @@
 package controller;
 
-import model.Message;
+import model.MessageBean;
 import model.MessageHolder;
 
 import javax.servlet.RequestDispatcher;
@@ -52,7 +52,7 @@ public class Servlet extends HttpServlet {
     private void handleKontaktRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("handleKontaktRequest!");
         System.out.println(request.getParameterMap().keySet());
-        Message message = null;
+        MessageBean message = null;
 
         try {
             // parsing the data!
@@ -75,7 +75,7 @@ public class Servlet extends HttpServlet {
                     cat != null && !cat.isEmpty() &&
                     subject != null && !subject.isEmpty() &&
                     msg != null && !msg.isEmpty()) {
-                message = new Message();
+                message = new MessageBean();
                 message.setFirstName(fn);
                 message.setLastName(ln);
                 message.setEmail(mail);
@@ -89,7 +89,7 @@ public class Servlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        // Message created?
+        // MessageBean created?
         if (message != null) {
             // logging aus aufgabe 1
             messages.getItems().add(message);
@@ -127,7 +127,7 @@ public class Servlet extends HttpServlet {
             }
         }
         if (id != null && id < messages.getItems().size()) {
-            Message message = messages.getItems().get(id);
+            MessageBean message = messages.getItems().get(id);
             request.setAttribute("message", message);
             request.setAttribute("id", messages.getItems().indexOf(message));
             RequestDispatcher dispatcher = request.getRequestDispatcher("/detail.jsp");

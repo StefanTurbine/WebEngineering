@@ -29,7 +29,7 @@
     </ul>
 </div>
 <div class="container">
-    <jsp:useBean id="message" scope="request" class="model.Message"/>
+    <jsp:useBean id="message" scope="request" class="model.MessageBean"/>
     <h3>
         <jsp:getProperty name="message" property="subject"/>
     </h3>

@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Created by Stefan on 30.05.2017.
  */
-public class Message {
+public class MessageBean {
         private String firstName;
         private String lastName;
         private String email;
@@ -73,7 +73,7 @@ public class Message {
 
         @Override
         public String toString() {
-            return "Message{" +
+            return "MessageBean{" +
                     "firstName='" + firstName + '\'' +
                     ", lastName='" + lastName + '\'' +
                     ", email='" + email + '\'' +
