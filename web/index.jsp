@@ -6,6 +6,7 @@
     <title>MeinVerein</title>
     <%--<jsp:include page="css/style.css"/>--%>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
+    <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
 </head>
 <body>
 <header>
@@ -47,7 +48,34 @@
         </c:forEach>
         </tbody>
     </table>
-    <!-- CONTENT -->
+    <hr/>
+    <div id="shoutbox">
+
+    </div>
+    <form class="form" action="submitFeedback" controller="administration">
+        <label for="text">
+            <h3>Enter your Feedback</h3>
+        </label>
+        <textarea required="true" name="text" id="text"></textarea>
+        <h6 id="count_message"></h6>
+        <button type="button" id="submit_btn" name="Submit" onclick="alert('TODO')">Absenden</button>
+    </form>
+</div>
+<script>
+    var text_max = 64;
+    $('#count_message').html(text_max + ' Zeichen übrig');
+    $('#text').keyup(function () {
+        var text_length = $('#text').val().length;
+        var text_remaining = text_max - text_length;
+        $('#count_message').html(text_remaining + ' Zeichen übrig');
+        $('#submit_btn').prop("disabled", (text_length > text_max));
+        if(text_remaining <= 0){
+            $('#text').val($('#text').val().substr(0, text_max - 1));
+            alert('Ok. Ist gut jetzt...')
+        }
+    });
+</script>
+<!-- CONTENT -->
 </div>
 <hr/>
 <footer>

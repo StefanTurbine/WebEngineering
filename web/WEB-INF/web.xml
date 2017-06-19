@@ -3,15 +3,4 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
-    <servlet>
-        <servlet-name>Servlet</servlet-name>
-        <servlet-class>controller.Servlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Servlet</servlet-name>
-        <url-pattern></url-pattern>
-        <url-pattern>/index</url-pattern>
-        <url-pattern>/kontakt</url-pattern>
-        <url-pattern>/detail/*</url-pattern>
-    </servlet-mapping>
 </web-app>

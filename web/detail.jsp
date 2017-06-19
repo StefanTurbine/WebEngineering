@@ -23,9 +23,9 @@
 <!-- CONTENT -->
 <div id="navbar">
     <ul>
-        <li><a href="/index">Nachrichten</a></li>
-        <li><a href="vorstand.html">Vorstand</a></li>
-        <li><a href="kontakt">Kontakt</a></li>
+        <li><a href="${pageContext.request.getContextPath()}/index">Nachrichten</a></li>
+        <li><a href="${pageContext.request.getContextPath()}/vorstand.html">Vorstand</a></li>
+        <li><a href="${pageContext.request.getContextPath()}kontakt">Kontakt</a></li>
     </ul>
 </div>
 <div class="container">

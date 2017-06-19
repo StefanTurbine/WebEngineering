@@ -1,11 +1,15 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="WebEngineering:war exploded">
-    <output-path>$PROJECT_DIR$/out/artifacts/WebEngineering_war_exploded</output-path>
+  <artifact type="exploded-war" name="WebEngineering">
+    <output-path>$PROJECT_DIR$/out/artifacts/WebEngineering</output-path>
     <root id="root">
       <element id="javaee-facet-resources" facet="WebEngineering/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="WebEngineering" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="javax.ws.rs-api-2.0.1" />
+          <element id="library" level="project" name="jstl-1.2" />
         </element>
       </element>
     </root>

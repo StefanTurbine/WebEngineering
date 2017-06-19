@@ -17,7 +17,9 @@ import java.util.Date;
 /**
  * Created by Stefan on 30.05.2017.
  */
-@WebServlet(name = "controller.Servlet")
+@WebServlet(name = "controller.Servlet",
+        urlPatterns = {"", "/index", "/kontakt", "/detail/*"}
+)
 public class Servlet extends HttpServlet {
 
     MessageHolder messages = new MessageHolder();
@@ -32,6 +34,9 @@ public class Servlet extends HttpServlet {
         System.out.println("Da passiert was!!! -->" + action);
         switch (action) {
             case "":
+                renderIndexPage(request, response);
+                break;
+            case "/":
                 renderIndexPage(request, response);
                 break;
             case "/index":
@@ -115,7 +120,8 @@ public class Servlet extends HttpServlet {
 
     private void handleDetailRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("Show detailPage");
-        String idString = request.getRequestURI().replace("detail", "").replace("/", "");
+        String[] split = request.getRequestURI().split("/");
+        String idString = split[split.length - 1];
         System.out.println(idString);
         Integer id = null;
         if (idString != null && !idString.isEmpty()) {
