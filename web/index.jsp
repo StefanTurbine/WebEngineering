@@ -4,9 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>MeinVerein</title>
-    <%--<jsp:include page="css/style.css"/>--%>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
-    <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
 </head>
 <body>
 <header>
@@ -63,17 +61,45 @@
 </div>
 <script>
     var text_max = 64;
-    $('#count_message').html(text_max + ' Zeichen übrig');
-    $('#text').keyup(function () {
-        var text_length = $('#text').val().length;
+    var message;
+    var textArea;
+    var submitButton;
+
+    /**
+     * instantiating global vars and adding a listener to the textarea
+     */
+    function init(){
+        message = document.getElementById("count_message");
+        textArea = document.getElementById("text");
+        submitButton = document.getElementById("submit_btn");
+        textArea.addEventListener("input", updateForm);
+        message.innerHTML = text_max + ' Zeichen übrig';
+    }
+
+    /**
+     *     updating character-counter and limiting textarea
+     */
+    function updateForm(){
+        var text_length = textArea.value.length;
         var text_remaining = text_max - text_length;
-        $('#count_message').html(text_remaining + ' Zeichen übrig');
-        $('#submit_btn').prop("disabled", (text_length > text_max));
-        if(text_remaining <= 0){
-            $('#text').val($('#text').val().substr(0, text_max - 1));
-            alert('Ok. Ist gut jetzt...')
+        message.innerHTML = text_remaining + ' Zeichen übrig';
+
+        // Should never be true, as value is limited via vode to max_length
+        if(text_length > text_max){
+            submitButton.setAttribute("disabled", "true");
+        } else {
+            submitButton.removeAttribute("disabled");
         }
-    });
+
+        // limit textArea length
+        if (text_remaining < 0) {
+            textArea.value = textArea.value.substr(0, text_max);
+            alert('Ok. Ist gut jetzt...');
+            updateForm();
+        }
+    }
+    init();
+    updateForm();
 </script>
 <!-- CONTENT -->
 </div>
