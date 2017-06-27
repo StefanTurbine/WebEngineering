@@ -1,12 +1,15 @@
 package rest;
 
 import com.google.gson.Gson;
-import jdk.nashorn.internal.ir.debug.JSONWriter;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.QueryParam;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Stefan on 19.06.2017.
@@ -26,17 +29,21 @@ public class Shoutbox {
 
     @PUT
     public String addMessage(@QueryParam("message") String message, @QueryParam("author") String author) {
-        String response;
+        Map<String, String> response = new HashMap<>();
+        boolean success = false;
         if (message != null && !message.isEmpty()
-                && author != null && !author.isEmpty()){
+                && author != null && !author.isEmpty()) {
             ShoutEntry entry = new ShoutEntry();
             entry.setAuthor(author);
             entry.setMessage(message);
             shoutEntries.add(entry);
-            response = "entry created successfully";
+            success = true;
+            response.put("message", "entry added successfully");
+
         } else {
-            response = "param is missing";
+            response.put("message", "param is missing");
         }
+        response.put("success", success + "");
         return new Gson().toJson(response);
     }
 

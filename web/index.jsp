@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <title>MeinVerein</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
+    <c:set var="req" value="${pageContext.request}"/>
+    <c:set var="baseURL" value="${req.scheme}://${req.serverName}:${req.serverPort}${req.contextPath}"/>
 </head>
 <body>
 <header>
@@ -47,18 +49,80 @@
         </tbody>
     </table>
     <hr/>
-    <div id="shoutbox">
-
+    <div id="shoutbox" style="overflow-y: scroll; height:200px;">
+        No Messages!
     </div>
+    <hr/>
     <form class="form" action="submitFeedback" controller="administration">
-        <label for="text">
-            <h3>Enter your Feedback</h3>
-        </label>
-        <textarea required="true" name="text" id="text"></textarea>
+        <h3>Enter your Feedback</h3>
+        <div>
+            <label for="author">Name</label>
+            <input type="text" id="author"/>
+        </div>
+        <div>
+            <textarea required="true" name="text" id="text"></textarea>
+        </div>
         <h6 id="count_message"></h6>
-        <button type="button" id="submit_btn" name="Submit" onclick="alert('TODO')">Absenden</button>
+        <button type="button" id="submit_btn" name="Submit" onclick="sendToShoutbox()">
+            Absenden
+        </button>
     </form>
 </div>
+<script>
+    var url = '${baseURL}/resources/shoutbox';
+    function sendToShoutbox() {
+        console.log("Sending PUT request");
+        var text = document.getElementById("text").value;
+        var author = document.getElementById("author").value;
+        var params = ('?message=' + text);
+        params += ('&author=' + author);
+
+        clearForm();
+
+        var request = new XMLHttpRequest();
+        request.open("PUT", url + params);
+        request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        request.onload = function () {
+            var response = JSON.parse(request.responseText);
+            if (response.success) {
+                updateShoutbox();
+            }
+            console.log(response)
+        };
+        request.send(null);
+    }
+
+    function updateShoutbox() {
+        var request = new XMLHttpRequest();
+        request.open("GET", url);
+        request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        request.onload = function () {
+            var response = JSON.parse(request.responseText);
+            fillShoutBox(response);
+        };
+        request.send('');
+    }
+
+    function fillShoutBox(messages) {
+        var shoutBox = document.getElementById("shoutbox");
+        shoutBox.innerHTML = "";
+        for (var i = 0; i < messages.length; i++) {
+            var message = messages[i];
+            var messageDiv = document.createElement('div');
+            messageDiv.innerHTML = message.author + " - " + message.message;
+            shoutBox.appendChild(messageDiv);
+        }
+        shoutBox.scrollTop = shoutBox.scrollHeight;
+    }
+
+    function clearForm() {
+        document.getElementById("text").value = '';
+    }
+    window.setInterval(function () {
+        updateShoutbox('${baseURL}/resources/shoutbox')
+    }, 10000);
+    updateShoutbox()
+</script>
 <script>
     var text_max = 64;
     var message;
@@ -68,7 +132,7 @@
     /**
      * instantiating global vars and adding a listener to the textarea
      */
-    function init(){
+    function init() {
         message = document.getElementById("count_message");
         textArea = document.getElementById("text");
         submitButton = document.getElementById("submit_btn");
@@ -79,13 +143,13 @@
     /**
      *     updating character-counter and limiting textarea
      */
-    function updateForm(){
+    function updateForm() {
         var text_length = textArea.value.length;
         var text_remaining = text_max - text_length;
         message.innerHTML = text_remaining + ' Zeichen übrig';
 
         // Should never be true, as value is limited via vode to max_length
-        if(text_length > text_max){
+        if (text_length > text_max) {
             submitButton.setAttribute("disabled", "true");
         } else {
             submitButton.removeAttribute("disabled");
