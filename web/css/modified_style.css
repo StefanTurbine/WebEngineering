@@ -1,0 +1,31 @@
+body {
+    background-color: lightgray;
+}
+
+header {
+    margin: 10px;
+    padding: 0 10%;
+    text-transform: uppercase;
+}
+
+header > h2 {
+    float: right;
+    margin: 50px;
+}
+
+.container {
+    background-color: #bfbfbf;
+}
+
+/*Used for showing limit reached*/
+.invalid-data {
+    border: 1px solid red;
+}
+
+.msg-auth {
+
+}
+
+.msg-text {
+    font-weight: bold;
+}
