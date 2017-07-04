@@ -100,11 +100,15 @@
                 console.log("Sending PUT request");
                 var text = document.getElementById("text").value;
                 var author = document.getElementById("author").value;
+                if(author === null || author === ""){
+                    author = "anonymous"
+                }
                 var params = ('?message=' + text);
                 params += ('&author=' + author);
 
                 clearForm();
-                $.ajax({
+                $.ajax(
+                    {
                         type: "PUT",
                         url: url + params,
                         data: null,
@@ -185,7 +189,7 @@
                 document.getElementById("text").value = '';
             }
             window.setInterval(function () {
-                updateShoutbox('${baseURL}/resources/shoutbox')
+                updateShoutbox()
             }, 10000);
             updateShoutbox()
         </script>
