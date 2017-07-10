@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head>
     <meta charset="UTF-8">
     <title>MeinVerein</title>
@@ -25,22 +26,28 @@
 </head>
 <body>
 <div class="container">
-    <div class="page-header">
-        <img src="${pageContext.request.contextPath}/img/logo.jpg" id="logo" height="100"/>
-        <h2 class="pull-right">Evil Corp e.V.</h2>
+    <div class="row">
+        <div class="col-sm-3 pull-right">
+            <img src="${pageContext.request.contextPath}/img/logo.jpg" id="logo" height="100"/>
+        </div>
+        <div class="col-sm-9">
+            <h2 >Evil Corp e.V.</h2>
+        </div>
+        <div class="clearfix"></div>
+        <hr/>
     </div>
     <div class="row">
-        <div class="col-sm-2">
+        <div class="col-md-2 col-sm-3">
             <!-- CONTENT -->
             <div>
-                <ul class="nav nav-pills nav-stacked">
-                    <li><a class="active" href="index" active="true">Nachrichten</a></li>
+                <ul class="nav nav-pills nav-stacked" id="navlist">
+                    <li><a href="index">Nachrichten</a></li>
                     <li><a href="vorstand.html">Vorstand</a></li>
                     <li><a href="kontakt">Kontakt</a></li>
                 </ul>
             </div>
         </div>
-        <div class="col-sm-10">
+        <div class="col-md-10 col-sm-9" id="main-content">
             <h3>Unsere Nachrichten</h3>
             <table class="table">
                 <thead>
@@ -100,7 +107,7 @@
                 console.log("Sending PUT request");
                 var text = document.getElementById("text").value;
                 var author = document.getElementById("author").value;
-                if(author === null || author === ""){
+                if (author === null || author === "") {
                     author = "anonymous"
                 }
                 var params = ('?message=' + text);
@@ -125,15 +132,6 @@
             }
 
             function updateShoutbox() {
-//                var request = new XMLHttpRequest();
-//                request.open("GET", url);
-//                request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-//                request.onload = function () {
-//                    var response = JSON.parse(request.responseText);
-//                    fillShoutBox(response);
-//                };
-//                request.send('');
-
                 $.ajax(
                     {
                         type: "GET",
@@ -157,7 +155,7 @@
             }
 
             function addShoutBoxEntry(author, message, index) {
-                if(index === undefined){
+                if (index === undefined) {
                     index = $("#shoutbox > div").length;
                 }
 
@@ -194,13 +192,13 @@
             updateShoutbox()
         </script>
         <script>
-            var text_max = 16;
+            var text_max = 32;
             /**
              * instantiating global vars and adding a listener to the textarea
              */
             function init() {
-//                document.getElementById("text").addEventListener("input", updateForm);
                 $("#count_message").text(text_max + ' Zeichen übrig');
+                $('#text').attr('maxlength', text_max);
                 $("#text").on("input", function (e) {
                     updateForm();
                 });
@@ -210,19 +208,17 @@
              *     updating character-counter and limiting textarea
              */
             function updateForm() {
-                var text_length = $("#text").val().length;
+                var text = $("#text");
+                var submit_btn = $("#submit_btn");
+                var text_length = text.val().length;
                 var text_remaining = text_max - text_length;
-                $("#text").removeClass("invalid-data");
-                $("#submit_btn").removeClass("btn-danger");
 
-                // limit textArea length
+                text.removeClass("invalid-data");
+                submit_btn.removeClass("btn-danger");
+
                 if (text_remaining <= 0) {
-                    var cut_text = $("#text").val().substr(0, text_max);
-                    text_remaining = 0;
-                    console.log(cut_text);
-                    $("#text").text(cut_text);
-                    $("#text").addClass("invalid-data");
-                    $("#submit_btn").addClass("btn-danger");
+                    text.addClass("invalid-data");
+                    submit_btn.addClass("btn-danger");
                 }
 
                 $("#count_message").text(text_remaining + ' Zeichen \u00fcbrig');
@@ -232,7 +228,8 @@
         </script>
         <!-- CONTENT -->
     </div>
-    <div class="row">
+    <br/>
+    <div class="row" id="footer">
         <div class="col-sm-12 text-center">
             <h4>Disclaimer</h4>
             <p><cite>Ich hafte nicht f&uuml;r meine Inhalte</cite></p>

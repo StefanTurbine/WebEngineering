@@ -1,4 +1,5 @@
 body {
+    --screen-sm-min: 768px;
     background-color: lightgray;
 }
 
@@ -8,9 +9,8 @@ header {
     text-transform: uppercase;
 }
 
-header > h2 {
-    float: right;
-    margin: 50px;
+body > div > div > div.col-sm-9 > h2 {
+    color: yellow;
 }
 
 .container {
@@ -28,4 +28,68 @@ header > h2 {
 
 .msg-text {
     font-weight: bold;
+}
+
+
+#navlist > li > a {
+
+    background-color: black;
+    color: #c9c9c9
+
+}
+
+#navlist > li > a:hover {
+
+    background-color: grey;
+    color: #fff
+
+}
+
+#main-content{
+    border-left: 1px solid black
+}
+
+#footer{
+    background-color: #c9c9c9;
+}
+
+body > div > div > div.col-md-10.col-sm-9 {
+
+}
+
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+
+    body > div > div > div.col-sm-9 > h2 {
+        color: red;
+    }
+
+    #navlist > li > a {
+        font-size: 12px;
+    }
+
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+
+    body > div > div > div.col-sm-9 > h2 {
+        color: blue;
+    }
+
+    #navlist > li > a {
+        font-size: 14px;
+    }
+
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+
+    body > div > div > div.col-sm-9 > h2 {
+        color: green;
+    }
+
 }
